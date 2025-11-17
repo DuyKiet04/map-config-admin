@@ -10,8 +10,8 @@ Nó cũng cung cấp một API công khai `GET /api/config` để các ứng d�
 
 ## Link Demo (Netlify)
 
-- **Trang Admin:** [cập nhật sau]/admin
-- **API Endpoint:** [cập nhật sau]/api/config
+- **Trang Admin:** [https://mapadmin.netlify.app/admin](https://mapadmin.netlify.app/admin)
+- **API Endpoint:** [https://mapadmin.netlify.app/api/config](https://mapadmin.netlify.app/api/config)
 
 ---
 
@@ -39,8 +39,8 @@ S3_ENDPOINT="[https://play.min.io](https://play.min.io)"
 S3_ACCESS_KEY="minioadmin"
 S3_SECRET_KEY="minioadmin"
 
-# Dùng bucket 'test' (vì 'sveltekitthesis' không ổn định)
-S3_BUCKET="test"
+
+S3_BUCKET="duykiet04-map-config"
 S3_KEY="configs/map-config.json"
 ```
 
