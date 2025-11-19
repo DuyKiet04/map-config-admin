@@ -2,22 +2,17 @@
 import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { env } from '$env/dynamic/private'; 
 
-
 const S3_BUCKET = env.S3_BUCKET;
 const S3_KEY = env.S3_KEY;
-
-
 const s3Client = new S3Client({
     endpoint: env.S3_ENDPOINT,
-    region: "us-east-1", // Bắt buộc cho MinIO
+    region: "us-east-1", 
     credentials: {
         accessKeyId: env.S3_ACCESS_KEY,
         secretAccessKey: env.S3_SECRET_KEY,
     },
     forcePathStyle: true, 
 });
-
-
 function getDefaultConfig() {
     return {
         title: "My Map Config",
@@ -42,8 +37,6 @@ function getDefaultConfig() {
         ]
     };
 }
-
-
 export async function getConfig() {
     const command = new GetObjectCommand({
         Bucket: S3_BUCKET,
@@ -56,7 +49,7 @@ export async function getConfig() {
         const str = await response.Body?.transformToString();
         return JSON.parse(str || "{}");
     } catch (error) {
-        // Nếu file không tồn tại (lỗi NoSuchKey), trả về config mặc định
+        // Nếu file không tồn tại , trả về config mặc định
         if (error.name === 'NoSuchKey') {
             console.warn("Config file not found. Returning default config.");
             return getDefaultConfig(); 
@@ -65,8 +58,6 @@ export async function getConfig() {
         throw error;
     }
 }
-
-
 export async function saveConfig(jsonContent: object) {
     const command = new PutObjectCommand({
         Bucket: S3_BUCKET,
@@ -74,7 +65,6 @@ export async function saveConfig(jsonContent: object) {
         Body: JSON.stringify(jsonContent, null, 2), 
         ContentType: "application/json", // Ghi đè file
     });
-
     try {
         await s3Client.send(command);
         return { success: true, message: "Cấu hình đã được lưu thành công!" };
